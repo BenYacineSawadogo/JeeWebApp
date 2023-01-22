@@ -3,8 +3,6 @@ package com.application.isge.AvisEvaluation.controller;
 import com.application.isge.AvisEvaluation.dto.EvaluationRepository;
 import com.application.isge.AvisEvaluation.model.Evaluation;
 import com.application.isge.AvisEvaluation.service.EvaluationService;
-import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,34 +11,35 @@ import java.util.List;
 @RestController
 public class EvaluationController {
     @Autowired
+    private EvaluationRepository evaluationRepository;
+    @Autowired
     private EvaluationService evaluationService;
-    private final EvaluationRepository evaluationRepository;
-
-    public EvaluationController(EvaluationRepository evaluationRepository) {
-        this.evaluationRepository = evaluationRepository;
-    }
-
     @PostMapping("/createEvaluation")
     public Evaluation createEvaluation(@RequestBody Evaluation evaluation){
-        return  evaluationService.createEvaluation(evaluation);
+        return evaluationService.createEvaluation(evaluation);
     }
     @GetMapping("/evaluation/{id}")
-    public  Evaluation getEvaluationById(@PathVariable long id){
-        return  evaluationService.getEvaluataionByd(id);
+    public Evaluation getEvaluationById(@PathVariable long id){
+        return  evaluationService.getEvaluationId(id);
     }
-
     @GetMapping("/evaluations")
-    public  List <Evaluation> getEvaluations(){
-        return evaluationService.getEvaluations();
-    }
-
-    @PutMapping("/evaluation/updateEvaluation")
-    public Evaluation updateEvaluation(@RequestBody Evaluation evaluation){
-        return  evaluationService.UpdateEvaluation(evaluation);
+    public List<Evaluation> evaluationList(){
+        return evaluationService.evaluations();
 
     }
-    public  String deleteEvaluation(@PathVariable long id){
-        evaluationService.deleteById(id);
+
+    @GetMapping("/evaluations/{avisId}/{critereId}/{evaluationId}")
+    public List<Evaluation> evaluationList(@PathVariable("critereId") long critereId,@PathVariable("avisId") long avisId ,@PathVariable("evaluationId") long evaluationId){
+        return evaluationRepository.findEvaluationsByAvisIdAndAndCritereIdAndEvaluationId(avisId,critereId,evaluationId);
+
+    }
+    @PutMapping("/evaluation/upDateEvaluation")
+    public Evaluation updateEvalutaion(@RequestBody Evaluation evaluation){
+        return evaluationService.updateEvaluation(evaluation);
+    }
+    @DeleteMapping("/evaluation/deleteEvaluation/{id}")
+    public String deleteEvaluation(@PathVariable long id){
+        evaluationService.deleteEvaluation(id);
         return "Deleted Successfully";
     }
 }
