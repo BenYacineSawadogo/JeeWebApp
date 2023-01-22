@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Create todo</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+</head>
+
+<body>
+<h1> Créer un todo</h1>
+<a th:href="@{/}"> Revenir a la page d'acceuil</a>
+
+<form method="post" th:action="@{/addEvaluation}">
+    <label>Titre</label>
+    <input type="text"  th:field="${todoForm.title}">
+
+    <label>Description</label>
+    <input type="text"  th:field="${todoForm.description}">
+
+    <input type="submit" value="Créer" />
+</form>
+
+<div th:if="${errorMessage}" th:text="${errorMessage}" class="text-red"></div>
+</body>
+</html>

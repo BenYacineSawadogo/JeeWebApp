@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Person List</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<h1>List des Todo</h1>
+<a th:href="@{/addTodo}">Créer un todo</a>
+<a th:href="@{/}">Revenir à la page d'acceuil</a>
+<br/><br/>
+<div>
+    <p th:if="${todos.size()} == 0">Aucun todo disponible</p>
+    <table border="1" th:if="${todos.size()} != 0">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Titre</th>
+            <th>Description</th>
+            <th>Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each ="todo : ${todos}">
+            <td th:text="${todo.id}">...</td>
+            <td th:text="${todo.title}">...</td>
+            <td th:text="${todo.description}">...</td>
+            <td th:text="${todo.createdAt}">...</td>
+        </tr>
+        </tbody>
+
+    </table>
+</div>
+</body>
+</html>
