@@ -4,6 +4,8 @@ import com.application.isge.AvisEvaluation.dto.EvaluationRepository;
 import com.application.isge.AvisEvaluation.model.Evaluation;
 import com.application.isge.AvisEvaluation.service.EvaluationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,6 +34,11 @@ public class EvaluationController {
     public List<Evaluation> evaluationList(@PathVariable("critereId") long critereId,@PathVariable("avisId") long avisId ,@PathVariable("evaluationId") long evaluationId){
         return evaluationRepository.findEvaluationsByAvisIdAndAndCritereIdAndEvaluationId(avisId,critereId,evaluationId);
 
+    }
+
+    @GetMapping("/evaluation/AverageEvaluation/{id}")
+    public double averageEvaluation(@PathVariable long id){
+        return evaluationRepository.findAverageByEvaluationId(id);
     }
     @PutMapping("/evaluation/upDateEvaluation")
     public Evaluation updateEvalutaion(@RequestBody Evaluation evaluation){
