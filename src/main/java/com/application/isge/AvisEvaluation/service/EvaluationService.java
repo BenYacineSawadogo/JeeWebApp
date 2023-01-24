@@ -37,6 +37,10 @@ public class EvaluationService {
         return  oldEvaluation;
     }
 
+    public Double AverageEvaluationByAvisId(Long avisId) {
+        return evaluationRepository.findAverageByAvisId(avisId);
+    }
+
     public String deleteEvaluation(long id){
         evaluationRepository.deleteById(id);
         return "deleted successfully";

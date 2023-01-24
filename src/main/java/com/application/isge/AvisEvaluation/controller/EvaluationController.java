@@ -40,6 +40,11 @@ public class EvaluationController {
     public double averageEvaluation(@PathVariable long id){
         return evaluationRepository.findAverageByEvaluationId(id);
     }
+
+    @GetMapping("/evaluation/AverageAvis/{id}")
+    public double averageAvis(@PathVariable long id){
+        return evaluationService.AverageEvaluationByAvisId(id);
+    }
     @PutMapping("/evaluation/upDateEvaluation")
     public Evaluation updateEvalutaion(@RequestBody Evaluation evaluation){
         return evaluationService.updateEvaluation(evaluation);
